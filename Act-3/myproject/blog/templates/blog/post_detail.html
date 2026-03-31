@@ -1,0 +1,29 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<h2>{{ post.title }}</h2>
+
+<p>{{ post.content }}</p>
+<p><strong>Author:</strong> {{ post.author }}</p>
+
+<hr>
+
+<h3>Comments</h3>
+
+{% if comments %}
+{% for comment in comments %}
+<strong>{{ comment.commenter }}</strong>:
+{{ comment.text }}
+{% endfor %}
+{% else %}
+<p>No comments yet.</p>
+{% endif %}
+
+<a href="{% url 'comment_add' post.pk %}">
+    <button>Add Comment</button>
+</a>
+
+<a href="{% url 'post_list' %}">Back to Posts</a>
+
+{% endblock %}
