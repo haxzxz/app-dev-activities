@@ -6,8 +6,8 @@ def post_list(request):
     posts = Post.objects.all()
     return render(request, 'blog/post_list.html', {'posts':posts})
 
-def post_detail(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
+def post_detail(request, pk):
+    post = get_object_or_404(Post, id=pk)
     comments = Comment.objects.filter(post=post)
     
     context = {
@@ -42,7 +42,7 @@ def post_edit(request, pk):
     return render(request, 'post_form.html', {'form': form})
 
 def comment_add(request, pk):
-    post = get_object_or_404
+    post = get_object_or_404(Post, pk=pk)
     
     if request.method == 'POST':
         form = CommentForm(request.POST)
