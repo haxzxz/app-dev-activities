@@ -1,6 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post, Comment
-from .forms import PostForm, CommentForm
+from .forms import PostForm, CommentForm, RegisterForm
+
+# Authentication Views Import
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LoginView, LogoutView
+from django.urls import reverse_lazy
 
 def post_list(request):
     posts = Post.objects.all()
@@ -56,4 +61,48 @@ def comment_add(request, pk):
     
     return render(request, 'blog/comment_form.html', {'form': form})
                 
-# Create your views here.
+# Authentication Views
+def register_view(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = RegisterForm()
+    return render(request, 'registration/register.html', {'form', form})
+
+class CustomLoginView(LoginView):
+    template_name = 'registration/login.html'
+
+class CusstomLogoutView(LogoutView):
+    template_name = 'registration/logout.html'
+
+@login_required
+def profile_view(request):
+    return render(request, 'registration/profile.html')
+
+@login_required
+def post_update(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if post.author != request.user:
+        return redirect('post_list')
+    
+    if request.method == 'POST':
+        post.title = request.POST.get('title')
+        post.content = request.POST.get('content')
+        post.save()
+        return redirect('post_detail', pk=post.pk)
+    
+    return render(request, 'blog/post_form.html', {'post', post})
+
+@login_required
+def post_delete(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if post.author != request.user:
+        return redirect('post_list')
+    
+    post.delete()
+    return redirect('post_list')
+
+    

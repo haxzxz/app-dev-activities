@@ -1,6 +1,9 @@
 from django import forms
 from .models import Post, Comment
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
+#Post Form Adding
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
@@ -21,7 +24,7 @@ class PostForm(forms.ModelForm):
             
         return cleaned_data
     
-    
+# Comment Form Adding
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
@@ -33,3 +36,8 @@ class CommentForm(forms.ModelForm):
             raise forms.ValidationError('Comment is too short')
         return text
 
+# Register User
+class RegisterForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'password1', 'password2']        
