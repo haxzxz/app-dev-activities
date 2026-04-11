@@ -27,7 +27,7 @@ def post_create(request):
         form = PostForm(request.POST)
         if form.is_valid():
             post = form.save()
-            return redirect('post_detail', post_id=post.pk)
+            return redirect('post_detail', pk=post.pk)
     else:
         form = PostForm()
     
@@ -44,7 +44,7 @@ def post_edit(request, pk):
     else:
         form = PostForm(instance=post)
     
-    return render(request, 'post_form.html', {'form': form})
+    return render(request, 'blog/post_form.html', {'form': form})
 
 def comment_add(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -70,7 +70,7 @@ def register_view(request):
             return redirect('login')
     else:
         form = RegisterForm()
-    return render(request, 'registration/register.html', {'form', form})
+    return render(request, 'registration/register.html', {'form': form})
 
 class CustomLoginView(LoginView):
     template_name = 'registration/login.html'
@@ -94,7 +94,7 @@ def post_update(request, pk):
         post.save()
         return redirect('post_detail', pk=post.pk)
     
-    return render(request, 'blog/post_form.html', {'post', post})
+    return render(request, 'blog/post_form.html', {'post': post})
 
 @login_required
 def post_delete(request, pk):
