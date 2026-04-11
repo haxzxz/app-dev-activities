@@ -7,6 +7,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
 
+def home(request):
+    if request.user.is_authenticated:
+        return redirect('post_list')
+    return redirect('login')
+
 def post_list(request):
     posts = Post.objects.all()
     return render(request, 'blog/post_list.html', {'posts':posts})

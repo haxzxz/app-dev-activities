@@ -1,3 +1,6 @@
+{% extends 'registration/base.html' %}
+
+{% block content %}
 <h2>Login</h2>
 <form method="post">
   {% csrf_token %}
@@ -6,3 +9,4 @@
 </form>
 
 <a href="{% url 'register' %}"> <button class="register">Register</button></a>
+{% endblock %}
