@@ -61,3 +61,34 @@ a {
     margin-top: 15px;
     color: #333;
 }
+
+nav {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+}
+
+nav a, nav span {
+    color: #000;
+    margin-right: 10px;
+    font-weight: 500;
+    padding: 20px;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: #EB0300;
+}
+
+nav button {
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+}
+
+.logout {
+    box-shadow: none;
+}

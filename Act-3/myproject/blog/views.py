@@ -14,7 +14,7 @@ def home(request):
 
 def post_list(request):
     posts = Post.objects.all()
-    return render(request, 'blog/post_list.html', {'posts':posts})
+    return render(request, 'blog/post_list.html', {'posts': posts})
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, id=pk)
@@ -31,7 +31,9 @@ def post_create(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            post = form.save()
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
             return redirect('post_detail', pk=post.pk)
     else:
         form = PostForm()
@@ -80,7 +82,7 @@ def register_view(request):
 class CustomLoginView(LoginView):
     template_name = 'registration/login.html'
 
-class CusstomLogoutView(LogoutView):
+class CustomLogoutView(LogoutView):
     template_name = 'registration/logout.html'
 
 @login_required

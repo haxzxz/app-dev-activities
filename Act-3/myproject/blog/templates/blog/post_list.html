@@ -17,20 +17,8 @@
 <p>No posts available.</p>
 {% endif %}
 
-{% if user.is_authenticated %}
-<a href="{% url 'post_create' %}"> <button>Create New Post</button> </a>
-
-<form method="POST" action="{% url 'logout' %}" class="logout">
-    {% csrf_token %}
-    <button type="submit" class="logout">Logout</button>
-</form>
-<<<<<<< Updated upstream
-=======
-
-<a href="{% url 'profile' %}"><button class="view">Profile</button></a>
->>>>>>> Stashed changes
+{% if user.is_autheticated %}
+    <a href="{% url 'post_create' %}"><button>Create New Post</button></a>
 {% endif %}
-
-<a href="{% url 'login' %}"> <button class="login">Login</button></a>
 
 {% endblock %}
