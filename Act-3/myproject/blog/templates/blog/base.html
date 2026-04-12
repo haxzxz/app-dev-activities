@@ -1,18 +1,42 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Django Blog</title>
-    <link rel="stylesheet" href = "{% static 'blog/style.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/blog-style.css' %}">
 </head>
 
 <body>
 
-<h1>My Django Blog</h1>
-<hr>
+    <nav>
+        <a href="{% url 'post_list' %}">Home</a>
 
-{% block content %}
-{% endblock %}
+        {% if user.is_authenticated %}
+
+        <a href="{% url 'post_list' %}">Posts</a>
+        <a href="{% url 'profile' %}">Profile</a>
+
+        <form action="{% url 'logout' %}" method="post" class="logout">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+
+        {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+    </nav>
+
+    <h1>My Django Blog</h1>
+    {% if user.is_authenticated %}
+    <h3>Welcome, {{ user.username }}</h3>
+    {% endif %}
+    <hr>
+
+    {% block content %}
+    {% endblock %}
 
 </body>
+
 </html>

@@ -20,9 +20,7 @@
 <p>No comments yet.</p>
 {% endif %}
 
-<a href="{% url 'comment_add' post.pk %}">
-    <button>Add Comment</button>
-</a>
+<a href="{% url 'comment_add' post.pk %}"><button>Add Comment</button> </a>
 
 <a href="{% url 'post_list' %}">Back to Posts</a>
 
