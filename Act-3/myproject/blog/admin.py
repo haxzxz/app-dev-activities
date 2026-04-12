@@ -20,6 +20,8 @@ class PostAdmin(admin.ModelAdmin):
     inlines = [CommentInline]
 
     actions = [mark_as_featured]
+    
+    readonly_fields = ('created_at', 'updated_at') 
 
     fieldsets = (
         ("Basic Info", {
@@ -35,7 +37,7 @@ class PostAdmin(admin.ModelAdmin):
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('post', 'commenter', 'created_at')
-    search_fields = ('commenter', 'content')
+    search_fields = ('commenter', 'text')
     list_filter = ('created_at',)
 
 # Register your models here.
