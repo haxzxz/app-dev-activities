@@ -1,0 +1,46 @@
+<MainScreen>:
+    name: "main"
+    BoxLayout:
+        orientation: "vertical"
+        padding: 20
+        spacing: 10
+        Label:
+            text: "Main Menu"
+            font_size: 32
+        Button:
+            text: "Go to List"
+            on_press: app.root.current = "list"
+
+<ListScreen>:
+    name: "list"
+    BoxLayout:
+        orientation: "vertical"
+        padding: 20
+        spacing: 10
+        Label:
+            text: "Items"
+            font_size: 30
+        Button:
+            text: "Item 1"
+            on_press: root.select_item("Item 1")
+        Button:
+            text: "Item 2"
+            on_press: root.select_item("Item 2")
+        Button:
+            text: "Back"
+            on_press: app.root.current = "main"
+
+<DetailScreen>:
+    name: "detail"
+    BoxLayout:
+        orientation: "vertical"
+        padding: 20
+        spacing: 10
+        Label:
+            text: "Detail Screen"
+            font_size: 30
+        Label:
+            text: root.item_name
+        Button:
+            text: "Back to List"
+            on_press: root.go_back()
